@@ -25,6 +25,11 @@ public class Client {
     public Client() {
     }
 
+    @Override
+    public String toString() {
+        return "{id=" + id + ", name=" + name + ", lastname=" + lastname + "}";
+    }
+
     public Long getId() {
         return id;
     }
