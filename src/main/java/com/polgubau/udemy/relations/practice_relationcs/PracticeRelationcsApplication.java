@@ -29,8 +29,9 @@ public class PracticeRelationcsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyToOne();
-		manyToOneFindByIdClient();
+		// manyToOne();
+		// manyToOneFindByIdClient();
+		oneToMany();
 	}
 
 	@Transactional
@@ -56,13 +57,11 @@ public class PracticeRelationcsApplication implements CommandLineRunner {
 	@Transactional
 	public void oneToMany() {
 
-		// find client
-		Optional<Client> optionalClient = clientRepository.findById(1L);
-		if (!optionalClient.isPresent()) {
-			System.out.println("Client not found");
-			return;
-		}
-		Client client = optionalClient.orElseThrow();
+		// new client
+		Client client = new Client("John", "Doe");
+
+		// save client
+		clientRepository.save(client);
 
 		Address address1 = new Address("Street 1", 100);
 		Address address2 = new Address("Riera figuera major", 37);
