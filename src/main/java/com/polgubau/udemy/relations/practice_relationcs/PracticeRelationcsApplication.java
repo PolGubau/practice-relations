@@ -12,6 +12,8 @@ import com.polgubau.udemy.relations.practice_relationcs.entities.Invoice;
 import com.polgubau.udemy.relations.practice_relationcs.repositories.ClientRepository;
 import com.polgubau.udemy.relations.practice_relationcs.repositories.InvoiceRepository;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootApplication
 public class PracticeRelationcsApplication implements CommandLineRunner {
 
@@ -30,6 +32,7 @@ public class PracticeRelationcsApplication implements CommandLineRunner {
 		manyToOneFindByIdClient();
 	}
 
+	@Transactional
 	public void manyToOne() {
 		// new client
 		Client client = new Client("John", "Doe");
@@ -49,6 +52,7 @@ public class PracticeRelationcsApplication implements CommandLineRunner {
 		System.out.println(invoiceDB);
 	}
 
+	@Transactional
 	public void manyToOneFindByIdClient() {
 
 		// find client
