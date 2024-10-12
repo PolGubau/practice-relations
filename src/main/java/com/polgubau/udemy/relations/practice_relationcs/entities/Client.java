@@ -1,9 +1,14 @@
 package com.polgubau.udemy.relations.practice_relationcs.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,21 +22,34 @@ public class Client {
 
     private String lastname;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses;
+
     public Client(String name, String lastname) {
+        this();
         this.name = name;
         this.lastname = lastname;
     }
 
     public Client() {
+        addresses = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "{id=" + id + ", name=" + name + ", lastname=" + lastname + "}";
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Client [id=" + id + ", name=" + name + ", lastname=" + lastname + ", addresses=" + addresses + "]";
     }
 
     public void setId(Long id) {
