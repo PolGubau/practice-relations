@@ -8,9 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -26,9 +23,10 @@ public class Client {
     private String lastname;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(name = "clients_addresses", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "address_id"), uniqueConstraints = @UniqueConstraint(columnNames = {
-            "address_id" }))
     private List<Address> addresses;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
+    private List<Invoice> invoices;
 
     public Client(String name, String lastname) {
         this();
@@ -38,6 +36,15 @@ public class Client {
 
     public Client() {
         addresses = new ArrayList<>();
+        invoices = new ArrayList<>();
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 
     public List<Address> getAddresses() {
@@ -54,7 +61,11 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client [id=" + id + ", name=" + name + ", lastname=" + lastname + ", addresses=" + addresses + "]";
+        return "Client [id=" + id
+                + ", name=" + name
+                + ", lastname=" + lastname
+                + ", addresses=" + addresses
+                + ", invoices=" + invoices + "]";
     }
 
     public void setId(Long id) {

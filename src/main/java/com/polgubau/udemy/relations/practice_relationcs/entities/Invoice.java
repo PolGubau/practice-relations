@@ -19,6 +19,7 @@ public class Invoice {
 
     private Long total;
 
+    @JoinColumn
     @ManyToOne
     private Client client;
 
@@ -40,7 +41,8 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "{id=" + id + ", description=" + description + ", total=" + total + ", client=" + client + "}";
+        return "{id=" + id + ", description=" + description + ", total=" + total + "}";
+
     }
 
     public Long getId() {
