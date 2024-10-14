@@ -6,4 +6,5 @@ import com.polgubau.udemy.relations.practice_relationcs.entities.Client;
 
 public interface ClientRepository extends CrudRepository<Client, Long> {
 
+    
 }

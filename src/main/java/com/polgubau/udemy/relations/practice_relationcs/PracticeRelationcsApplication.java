@@ -8,8 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.polgubau.udemy.relations.practice_relationcs.entities.Client;
+import com.polgubau.udemy.relations.practice_relationcs.entities.ClientDetails;
 import com.polgubau.udemy.relations.practice_relationcs.entities.Address;
 import com.polgubau.udemy.relations.practice_relationcs.entities.Invoice;
+import com.polgubau.udemy.relations.practice_relationcs.repositories.ClientDetailsRepository;
 import com.polgubau.udemy.relations.practice_relationcs.repositories.ClientRepository;
 import com.polgubau.udemy.relations.practice_relationcs.repositories.InvoiceRepository;
 
@@ -22,6 +24,8 @@ public class PracticeRelationcsApplication implements CommandLineRunner {
 	private ClientRepository clientRepository;
 	@Autowired
 	private InvoiceRepository invoiceRepository;
+	@Autowired
+	private ClientDetailsRepository clientDetailsRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PracticeRelationcsApplication.class, args);
@@ -31,7 +35,19 @@ public class PracticeRelationcsApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// manyToOne();
 		// manyToOneFindByIdClient();
-		oneToMany();
+		oneToOne();
+	}
+
+	public void oneToOne() {
+		// new client
+		Client client = new Client("John", "Doe");
+		clientRepository.save(client);
+
+		// new client details
+		ClientDetails clientDetails = new ClientDetails(true, 12);
+		clientDetails.setClient(client);
+
+		clientDetailsRepo.save(clientDetails);
 	}
 
 	@Transactional
